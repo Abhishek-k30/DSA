@@ -37,3 +37,5 @@ public:
         return f(0,0,obstacleGrid, dp);
     }
 };
+
+// TC O(N*M) SC O(N*M + max(N,M))
