@@ -15,8 +15,8 @@ public:
             int mid=begin+(end-begin)/2;
             
             if(matrix[mid/m][mid%m]==target)return true;
-            else if(matrix[mid/m][mid%m]<target)begin=begin+1;
-            else end=end-1;
+            else if(matrix[mid/m][mid%m]<target)begin=mid+1;
+            else end=mid-1;
         }
         
         return false;
