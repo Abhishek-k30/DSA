@@ -1,33 +1,41 @@
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        vector<vector<int>> ans;
-        set<vector<int>> st;
         int n=nums.size();
-        unordered_map<long long, int> m;
+        vector<vector<int>> ans;
+         set<vector<int>> st;
+        sort(nums.begin(), nums.end());
+        
         for(int i=0; i<n; i++){
-            m[nums[i]]=i;
-        }
-        for(int i=0; i<n; i++){
-            for(int j=i+1; j<n; j++ ){
-                for(int k=j+1; k<n; k++){
-                    long long val= (long long)target-(long long)nums[i]-(long long)nums[j]-(long long)nums[k];
-                    if(m.find(val)!=m.end()){
-                        int ind=m[val];
-                        if(ind!=i && ind !=j && ind !=k){
-                            vector<int> v={(int)nums[i], (int)nums[j], (int)nums[k], (int)val};
-                            sort(v.begin(), v.end());
-                            st.insert(v);
-                        }
+            for(int j=i+1; j<n; j++){
+                
+                int front=j+1;
+                int rear=n-1;
+                
+                long sum = long(target) - long(nums[j]) - long(nums[i]);
+                while(front<rear){
+                    
+                    long sm= (long)nums[front]+ (long)nums[rear];
+                    
+                    if(sum>sm){
+                        front++;
                     }
+                    else if(sum<sm){
+                        rear--;
+                    }
+                    else{
+                        vector<int> v={nums[i], nums[j], nums[front], nums[rear]};
+                        st.insert(v);
+                        front++;
+                        rear--;
+                    }
+                    
                 }
             }
         }
-            
+        
         for(auto it: st)ans.push_back(it);
-            
+        
         return ans;
     }
 };
-
-// TC=O(n*n*n*logn), SC=O(n*n)
