@@ -18,37 +18,16 @@ public:
     int search(vector<int>& nums, int target) {
         int n=nums.size();
         int l=0, r=n-1, init=nums[0];
-        if(r<3){
-            for(int i=0;i<n; i++){
-                if(nums[i]==target)
-                    return i;
-            }
-            
-            return -1;
-        }
-        
-//         int k=0;
-//         if(nums[0]>nums[1])
-//             k=r;
-//         else if(nums[r]<nums[r-1])
-//             k=1;
-//         else{
-        
-//         while(l<=r){
-            
-//             int mid= l+ (r-l)/2;
-//             if(nums[mid]<init)
-//                 r=mid-1;
-//             else if(nums[mid]>nums[mid-1] && nums[mid]<nums[mid+1])
-//                 l=mid+1;
-//             else if(nums[mid]>nums[mid-1] && nums[mid]>nums[mid+1]){
-//                 k=mid+1;
-//                 break;
+//         if(r<3){
+//             for(int i=0;i<n; i++){
+//                 if(nums[i]==target)
+//                     return i;
 //             }
             
-//         }
+//             return -1;
 //         }
         
+ 
         while (l < r) {
         int mid = l + (r - l) / 2;
         if (nums[mid] > nums[r]) {
