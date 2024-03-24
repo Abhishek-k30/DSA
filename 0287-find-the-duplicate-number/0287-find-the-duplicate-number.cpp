@@ -1,20 +1,11 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        int n=nums.size();
-        for(int i=0; i< n; i++){
-            int index= abs(nums[i])-1;
-            
-            nums[index]*=-1;
-            
-            if(nums[index]>0){
-                return abs(nums[i]);
-            }
-            
-             
-        }   
-        return -1;
+         sort(nums.begin(), nums.end());
+        for(int i=1; i<nums.size(); i++){
+            if(nums[i]==nums[i-1])return nums[i];
+        }
+        
+        return nums.back();
     }
 };
-
-// TC=O(n), SC=O(1)
