@@ -14,9 +14,10 @@ public:
                 l++;
                 
             }
-            
+            cout<<count<<" ";
             ans+= count;
         }
+        cout<<endl;
         
         return ans;
         
