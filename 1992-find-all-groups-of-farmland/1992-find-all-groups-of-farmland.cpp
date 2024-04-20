@@ -6,27 +6,38 @@ private:
         vis[row][col]=1;
         long long dx[]={+1,-1,+0,+0};                   
         long long dy[]={+0,+0,+1,-1}; 
-        vector<pair<int, int>> vp;
+        //vector<pair<int, int>> vp;
+        int mnRow=1e9, mnCol=1e9;
+        int mxRow=-1, mxCol=-1;
         queue<pair<int,int>> q;
         q.push({row, col});
         while(!q.empty()){
             int r= q.front().first;
             int c= q.front().second;
             q.pop();
-            vp.push_back({r,c});
+            //vp.push_back({r,c});
+            mnRow=min(mnRow, r);
+            mnCol=min(mnCol, c);
+            mxRow=max(mxRow, r);
+            mxCol=max(mxCol, c);
             for(int k=0; k<4; k++){
                 int nrow = r+ dx[k];
                 int ncol = c+ dy[k];
                 if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && !vis[nrow][ncol] && land[nrow][ncol]==1){
                     q.push({nrow, ncol});
-                    vp.push_back({nrow, ncol});
+                    //vp.push_back({nrow, ncol});
+                    mnRow=min(mnRow, nrow);
+                    mnCol=min(mnCol, ncol);
+                    mxRow=max(mxRow, nrow);
+                    mxCol=max(mxCol, ncol);
                     vis[nrow][ncol]=1;
                 }
             }
         }
-        sort(vp.begin(), vp.end());
-        if(vp.size()<1)return;
-        ans.push_back({vp[0].first, vp[0].second, vp.back().first, vp.back().second});
+        //sort(vp.begin(), vp.end());
+        if(mnRow==1e9 || mnCol==1e9 || mxRow==-1 || mxCol==-1)return;
+        //ans.push_back({vp[0].first, vp[0].second, vp.back().first, vp.back().second});
+        ans.push_back({mnRow, mnCol, mxRow, mxCol});
         
     }
 public:
