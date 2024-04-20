@@ -1,37 +1,6 @@
 class Solution {
 private:
-    bool bfs(vector<vector<int>>& grid1, vector<vector<int>>& grid2, int row, int col, 
-            vector<vector<int>> & vis){
-        int n = grid1.size();
-        int m = grid1[0].size();
-        int dx[]= {+1,-1,0,0};
-        int dy[]= {0,0,+1,-1};
-        vis[row][col]=1;
-        queue<pair<int, int>> q; //{row, col}
-        q.push({row, col});
-        bool flag=true;
-        while(!q.empty()){
-            int r = q.front().first;
-            int c = q.front().second;
-            q.pop();
-            if(grid1[r][c]==0){
-                flag=false;
-            }
-            for(int k=0; k<4; k++){
-                int nrow= r + dx[k];
-                int ncol= c + dy[k];
-                 
-                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && !vis[nrow][ncol] &&
-                  grid2[row][col]==1  ){
-                    vis[nrow][ncol]=1;
-                    q.push({nrow, ncol});
-                }
-                 
-            }
-            
-        }
-        return flag;
-    }
+   
 public:
     int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
         int n = grid1.size();
