@@ -3,28 +3,22 @@ public:
     vector<string> commonChars(vector<string>& words) {
         int n = words.size();
         vector<string> ans;
-        for(int i = 0; i<words[0].size(); i++){
-            char c = words[0][i];
-            string p = "";
-            p+=c;
-            bool f = true;
-            for(int j = 1; j<n; j++){
-                string mat = words[j];
-                bool found = false;
-                for(int k = 0; k<mat.size(); k++){
-                    if(c==mat[k]){
-                        words[j][k] = '#';
-                        found=true;
-                        break;
-                    }
-                }
-                if(!found)
-                    f= false;
+        vector<int> cnt(26, 1e9);
+        vector<int> aux(26, 0);
+        for(auto &c :  words){
+            for(auto &it: c)aux[it-'a']++;
+            for(int i=0; i<26; i++){
+                cnt[i] = min(cnt[i], aux[i]);
+                aux[i] = 0;
             }
-            
-            if(f)
-                ans.push_back(p);  
-            
+        }
+        
+        for(int i=0; i<26; i++){
+            for(int j=0; j<cnt[i]; j++){
+                string p = "";
+                p+='a'+i;
+                ans.push_back(p);
+            }
         }
         
         return ans;
