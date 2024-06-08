@@ -1,22 +1,28 @@
 class Solution {
 public:
     bool checkSubarraySum(vector<int>& nums, int k) {
-        int n=nums.size();
-        if(n<2)
-            return false;
-        unordered_map<int , int> m;
-        m[0]=-1;
-        int runningSum=0;
+        int n = nums.size();
+        if(n<2)return false;
+        
+        int mod = 0;
+        unordered_map<int, int> mpp;
+        mpp[0] = -1;
         for(int i=0; i<n; i++){
-            runningSum+=nums[i];
-            if(k!=0)runningSum%=k;
-            if(m.find(runningSum)!=m.end()){
-                if(i-m[runningSum]>1)
+            mod = (mod + nums[i])%k;
+            
+            if(mpp.find(mod)!=mpp.end()){
+                if(i-mpp[mod]>1)
                     return true;
             }
-            else m[runningSum]=i;
+            else mpp[mod] = i;
+            
+            
         }
-         
+        
         return false;
+        
     }
 };
+
+//TC=O(n), SC=O(n)
+// if mod is repeating , it means there is sum between these index where sum%k==0.
