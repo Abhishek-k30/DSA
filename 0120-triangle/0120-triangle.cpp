@@ -19,7 +19,18 @@ public:
     int minimumTotal(vector<vector<int>>& triangle) {
         int n = triangle.size();
         
-        vector<vector<int>> dp(n, vector<int>(n, -1));
-        return f(0, 0, n, triangle, dp);
+        vector<vector<int>> dp(triangle);
+        //return f(0, 0, n, triangle, dp);
+        
+        for(int i = n-2; i>=0; i--){
+            for(int j =i; j>=0 ; j-- ){
+                int down = dp[i][j] + dp[i+1][j];
+                int dg = dp[i][j] + dp[i+1][j+1];
+                
+                dp[i][j] = min(down, dg);
+            }
+        }
+        
+        return dp[0][0];
     }
 };
