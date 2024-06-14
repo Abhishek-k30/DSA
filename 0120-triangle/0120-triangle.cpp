@@ -1,27 +1,25 @@
 class Solution {
-public:
-    int f(int i, int j, vector<vector<int>> & triangle, vector<vector<int>> &dp){
-        int n=triangle.size();
+private:
+    int f(int i , int j , int n,  vector<vector<int>>& tri , vector<vector<int>> &dp){
         
-        // Base Case
-        if(i==n-1)return triangle[i][j];
+        if(i==n-1)
+            return tri[i][j];
         
-        // Memoization
-        if(dp[i][j]!=-1)return dp[i][j];
+        if(dp[i][j]!=-1)
+            return dp[i][j];
         
-        // Diagonal Movement
-        int dg=triangle[i][j]+f(i+1, j+1, triangle, dp);
+        int down = tri[i][j] + f(i+1, j , n, tri, dp);
         
-        // Down Movement
-        int down=triangle[i][j]+f(i+1, j, triangle, dp);
+        int dg = tri[i][j] + f(i+1, j+1, n, tri, dp);
         
-        // Minimum of diagnal and down movement
+        return dp[i][j] = min(down, dg);
         
-        return dp[i][j]=min(dg, down);
     }
+public:
     int minimumTotal(vector<vector<int>>& triangle) {
-        int n=triangle.size();
+        int n = triangle.size();
+        
         vector<vector<int>> dp(n, vector<int>(n, -1));
-        return f(0,0, triangle, dp);
+        return f(0, 0, n, triangle, dp);
     }
 };
