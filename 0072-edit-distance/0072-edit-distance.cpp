@@ -1,29 +1,28 @@
 class Solution {
-public:
-    int f(int index1, int index2, string &s , string &t, vector<vector<int>> &dp  ){
+private:
+    int f(int i , int j , string &s, string &t, vector<vector<int>> &dp){
+        if(j<0)
+            return i+1;
+        if(i<0)
+            return j+1;
         
-        //Base Case
-        if(index1<0)return index2+1;
-        if(index2<0)return index1+1;
+        if(dp[i][j]!=-1)
+            return dp[i][j];
         
-        // Memoization
-        if(dp[index1][index2]!=-1)return dp[index1][index2];
+        if(s[i]==t[j])
+            return dp[i][j] = f(i-1, j-1, s , t, dp);
+        else return dp[i][j] = 1 +  min({f(i, j-1, s , t, dp) ,
+                                       f(i-1, j, s , t, dp),
+                                       f(i-1, j-1, s, t, dp)});
         
-        
-        //Match
-        if(s[index1]==t[index2])
-            return dp[index1][index2]= f(index1-1, index2-1, s, t, dp);
-        
-        // Not Match
-        return dp[index1][index2]=  1+ min({f(index1-1, index2, s, t, dp), f(index1, index2-1, s, t, dp), f(index1-1, index2-1, s, t, dp)});
     }
+public:
     int minDistance(string word1, string word2) {
-        int n=word1.size();
-        int m=word2.size();
+        int n = word1.size();
+        int m = word2.size();
         
-        vector<vector<int>> dp(n, vector<int>(m, -1));
+        vector<vector<int>> dp(n+1, vector<int>(m+1, -1));
         
         return f(n-1, m-1, word1, word2, dp);
-        
     }
 };
