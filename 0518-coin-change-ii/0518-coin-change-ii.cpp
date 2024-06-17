@@ -1,32 +1,25 @@
 class Solution {
-public:
-    int f(int ind, int tar, vector<int> &coins, vector<vector<int>> &dp){
-        int n=coins.size();
+private:
+    int f(int ind, int amount, vector<int> &coins, vector<vector<int>>&dp){
+        if(amount==0)return 1;
+        if(ind<0)
+            return 0;
         
-        //Base Case
-        if(ind<0 || ind>=n)return 0;
-        if(ind==n-1)return (tar%coins[ind]==0);
+        if(dp[ind][amount]!=-1)
+            return dp[ind][amount];
         
-        // Memoization
-        if(dp[ind][tar]!=-1)return dp[ind][tar];
+        int notTake = f(ind-1, amount, coins, dp);
+        int take = 0;
+        if(coins[ind]<=amount)
+            take = f(ind, amount-coins[ind], coins, dp);
         
-        // Not Pick
-        int notPick=f(ind+1, tar, coins, dp);
-        
-        // Pick
-        int Pick=0;
-        if(tar-coins[ind]>=0){
-            Pick=f(ind,tar-coins[ind], coins, dp);
-        }
-        
-        // Return sum
-        return dp[ind][tar]=notPick+Pick;
+        return dp[ind][amount] = take + notTake;
     }
+public:
     int change(int amount, vector<int>& coins) {
-        int n=coins.size();
+        int n = coins.size();
         vector<vector<int>> dp(n+1, vector<int>(amount+1, -1));
-        return f(0, amount, coins, dp);
+        
+        return f(n-1, amount, coins, dp);
     }
 };
-
-// TC=O(N*AMOUNT), SC=O(N*AMOUNT)+O(AMOUNT);
