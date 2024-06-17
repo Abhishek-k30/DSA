@@ -20,10 +20,28 @@ private:
 public:
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
-        vector<vector<int>> dp(n+1, vector<int>(amount+1, -1));
-        int ans =  f(n-1, amount, coins, dp);
-        if(ans>=1e9)
+        vector<vector<int>> dp(n+1, vector<int>(amount+1, 0));
+        // int ans =  f(n-1, amount, coins, dp);
+        // if(ans>=1e9)
+        //     return -1;
+        // return ans;
+        
+        for(int i=1; i<=amount; i++)dp[0][i] = 1e9;
+        
+        for(int i=1; i<=n; i++){
+            for(int j = 0; j<=amount; j++){
+                int ans = 1e9;
+                ans = min(ans, dp[i-1][j]);
+                
+                if(coins[i-1]<= j)
+                    ans = min(ans, 1+dp[i][j-coins[i-1]]);
+                
+                dp[i][j] = ans;
+            }
+        }
+        
+        if(dp[n][amount]>=1e9)
             return -1;
-        return ans;
+        return dp[n][amount];
     }
 };
