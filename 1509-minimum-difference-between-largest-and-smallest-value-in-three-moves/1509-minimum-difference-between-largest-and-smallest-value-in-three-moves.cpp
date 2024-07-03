@@ -18,6 +18,7 @@ public:
         }
         int l = 0, r = n-4;
         
+        
         for(int i=0; i<4; i++){
             ans = min(ans, abs(nums[l]-nums[r]));
             l++;
