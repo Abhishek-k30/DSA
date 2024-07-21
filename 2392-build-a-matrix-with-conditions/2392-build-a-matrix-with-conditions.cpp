@@ -51,16 +51,24 @@ public:
             return {};
         else{
             vector<vector<int>> matrix(k, vector<int> (k, 0));
-            unordered_map<int, int> m1, m2;
-            for(int i = 1; i<topo1.size(); i++){
-                m1[topo1[i]] = i-1;
-            }
-            for(int i = 1; i<topo2.size(); i++){
-                m2[topo2[i]] = i-1;
-            }
+//             unordered_map<int, int> m1, m2;
+//             for(int i = 1; i<topo1.size(); i++){
+//                 m1[topo1[i]] = i-1;
+//             }
+//             for(int i = 1; i<topo2.size(); i++){
+//                 m2[topo2[i]] = i-1;
+//             }
+            
+//             for(int i = 1; i<=k; i++){
+//                 matrix[m1[i]][m2[i]] = i;
+//             }
             
             for(int i = 1; i<=k; i++){
-                matrix[m1[i]][m2[i]] = i;
+                for(int j = 1; j<=k; j++){
+                    if(topo1[i] == topo2[j]){
+                        matrix[i-1][j-1] = topo1[i]; 
+                    }
+                }
             }
             
            return matrix;
