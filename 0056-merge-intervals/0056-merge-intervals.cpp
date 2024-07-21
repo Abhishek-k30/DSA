@@ -1,39 +1,23 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        int n=intervals.size();
+        int n = intervals.size();
+        vector<vector<int>> mergedInterval;
+        
         sort(intervals.begin(), intervals.end());
-        vector<vector<int>> ans;
-        for(int i=0; i<n; i++){
-            
-            if(ans.empty()){
-                ans.push_back(intervals[i]);
-            }
-            
+        
+        for(auto &it : intervals){
+            if(mergedInterval.empty())
+                mergedInterval.push_back(it);
             else{
-                
-                vector<int> &v= ans.back();
-                
-                // Overlapping
-                if(v[1]>= intervals[i][0]){
-                    v[1]=max(intervals[i][1], v[1]);
+                vector<int> &v = mergedInterval.back();
+                if(v[1]>=it[0]){
+                    v[1] = max(v[1], it[1]);
                 }
-                
-                // Non overlapping
-                else{
-                    ans.push_back(intervals[i]);
-                }
-                
-                
-                
-                
-            
-            
+                else mergedInterval.push_back(it);
             }
         }
-            
-            return ans;
+        
+        return mergedInterval;
     }
 };
-
-// TC=O(n), SC=O(2*n)
