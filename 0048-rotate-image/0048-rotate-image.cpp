@@ -1,16 +1,18 @@
 class Solution {
 public:
     void rotate(vector<vector<int>>& matrix) {
-        // for clockwise, first reverse the matrix and then swap it as (i,j)==(j,i)
+        int n = matrix.size();
+        int m = matrix[0].size();
         
-        reverse(matrix.begin(), matrix.end());
-        for(int i=0; i<matrix.size(); i++){
-            for(int j=i+1; j<matrix[0].size(); j++){
+        // transpose and reverse
+        
+        for(int i = 0; i<n; i++){
+            for(int j = i+1; j<m; j++){
                 swap(matrix[i][j], matrix[j][i]);
             }
+           reverse(matrix[i].begin(), matrix[i].end());
         }
         
+
     }
 };
-
-// TC=O(n), SC=O(1)
