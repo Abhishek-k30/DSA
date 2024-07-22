@@ -1,28 +1,22 @@
 class Solution {
 public:
     double myPow(double x, int n) {
+        double ans = 1.0;
+        long nn = n;
+        if(nn<0) nn = -1.0*nn;
         
-        if(n<0){
-            x=1/x;
-        }
-        
-        long num=labs(n);
-        
-        double pow=1;
-        
-        while(num!=0){
-            
-            if((num&1)!=0){
-                pow*=x;
+        while(nn>0){
+            if(nn%2 == 1){
+                ans = ans* x;
+                nn--;
             }
-            
-            x*=x;
-            
-            num/=2;
+            else{
+                x = x*x;
+                nn/=2;
+            }
         }
         
-        return pow;
+        if(n<0)ans = (double)1.0/(ans);
+        return ans;
     }
 };
-
-//TC=O(log2(n)), SC=O(1)
