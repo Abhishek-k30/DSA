@@ -8,19 +8,26 @@ public:
     vector<int> frequencySort(vector<int>& nums) {
         unordered_map<int, int> m;
         for(auto &it: nums)m[it]++;
-        vector<pair<int, int>> vp;
-        for(auto &it : m)vp.push_back({it.second, it.first});
-        sort(vp.begin(), vp.end(), comp);
+//         vector<pair<int, int>> vp;
+//         for(auto &it : m)vp.push_back({it.second, it.first});
+//         sort(vp.begin(), vp.end(), comp);
         
-        vector<int> ans;
-        for(auto &it : vp){
-            int curNum = it.second;
-            int freq = it.first;
+//         vector<int> ans;
+//         for(auto &it : vp){
+//             int curNum = it.second;
+//             int freq = it.first;
             
-            while(freq--)ans.push_back(curNum);
-        }
+//             while(freq--)ans.push_back(curNum);
+//         }
         
-        return ans;
+//         return ans;
         
+        sort(nums.begin(), nums.end(), [&](int a, int b){
+            if(m[a]!=m[b])
+                return m[a] < m[b];
+            return a>b;
+        });
+        
+            return nums;
     }
 };
