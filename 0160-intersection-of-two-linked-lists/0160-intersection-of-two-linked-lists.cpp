@@ -13,12 +13,12 @@ public:
         
         while(ptr1 != ptr2){
             if(ptr1 == NULL){
-                ptr1 = headA;
+                ptr1 = headB;
             }
             else ptr1 = ptr1->next;
             
             if(ptr2 == NULL){
-                ptr2 = headB;
+                ptr2 = headA;
             }
             else ptr2 = ptr2-> next;
         }
