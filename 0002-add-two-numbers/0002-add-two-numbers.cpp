@@ -11,57 +11,47 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        int carry=0;
-        ListNode* ptr1=l1;
-        ListNode* ptr2=l2;
-        ListNode* prev;
-        ListNode* head;
-        bool flag=true;
+        ListNode* ptr1 = l1;
+        ListNode* ptr2 = l2;
+        ListNode* prev = NULL;
+        ListNode* head = NULL;
+        bool isItFirstNode = true;
         
+        int  carry = 0;
         while(ptr1 || ptr2){
-            int a=0;
-            int b=0;
+            int  a = 0, b = 0;
+            if(ptr1)a= ptr1->val;
+            if(ptr2)b= ptr2->val;
             
-            if(ptr1)a=ptr1->val;
-            if(ptr2)b=ptr2->val;
+           int sum = a + b + carry;
             
-            int sum=a+b;
-            
-            sum+=carry;
-            if(sum>9){
-                carry=1;
-                sum=sum%10;
+            if(sum> 9){
+                carry = 1;
+                sum%=10;
             }
-            else carry=0;
+            else carry = 0;
             
-            ListNode* curr= new ListNode();
-            curr->val=sum;
-            if(flag){
-                head=curr;
-                flag=false;
-                
+            ListNode* cur = new ListNode();
+            cur ->val = sum;
+            
+            if(isItFirstNode){
+                head = cur;
+                isItFirstNode = false;
             }
-            else{
-                prev->next=curr;
+            else {
+                prev->next = cur;
             }
             
-            prev=curr;
+            prev = cur;
             
-            if(ptr1)ptr1=ptr1->next;
-            if(ptr2)ptr2=ptr2->next;
-            
-            
-            
+            if(ptr1)ptr1 = ptr1->next;
+            if(ptr2)ptr2 = ptr2->next;
         }
-        ListNode* end= new ListNode();
-        if(carry==1){
-            
-            end->val=carry;
-            end->next=NULL;
-             
         
-        
-        prev->next=end;
+        if(carry == 1){
+            ListNode* endNode = new ListNode(carry);
+            endNode ->next = NULL;
+            prev->next = endNode;
         }
         
         return head;
