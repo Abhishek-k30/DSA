@@ -11,20 +11,18 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        int size=0;
-        ListNode* temp= head;
-        while(temp){
-            size++;
-            temp=temp->next;
-        }
-        size= ceil(size/2);
-        ListNode* ans=head;
-        for(int i=0; i<size; i++){
-            ans=ans->next;
+        ListNode * cur = head;
+        int len = 0;
+        while(cur){
+            len++;
+            cur = cur->next;
         }
         
-        return ans;
+        len/=2;
+        ListNode* mid = head;
+        for(int i = 0; i<len; i++)
+            mid = mid ->next;
+        
+        return mid;
     }
 };
-
-//TC=O(n), SC=O(1)
