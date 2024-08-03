@@ -35,9 +35,9 @@ private:
         
     }
 public:
-    void backtrack(int col, int n,  vector<string> &board, set<vector<string>> &ans){
+    void backtrack(int col, int n,  vector<string> &board, int &ans){
         if(col == n){
-            ans.insert(board);
+             ans++;
             return;
         }
         
@@ -51,7 +51,7 @@ public:
     }
 public:
     int totalNQueens(int n) {
-         set<vector<string>> ans;
+         int ans = 0;
         vector<string> board(n);
         string s(n, '.');
         
@@ -60,7 +60,7 @@ public:
         }
         
         backtrack(0, n, board, ans);
-        return ans.size();
+        return ans ;
         
     }
 };
