@@ -1,27 +1,23 @@
 class Solution {
 private:
-    void helper(vector<int>& nums, vector<int>& ds, vector<bool>& freq, vector<vector<int>> &ans){
-        if(ds.size()== nums.size()){
-            ans.push_back(ds);
+    void helper(int ind, vector<int> & nums, vector<vector<int>> &ans){
+        if(ind == nums.size()){
+            ans.push_back(nums);
             return;
         }
         
-        for(int i = 0; i<nums.size(); i++){
-            if(!freq[i]){
-                freq[i] = true;
-                ds.push_back(nums[i]);
-                helper(nums, ds, freq, ans);
-                ds.pop_back();
-                freq[i] = false;
-            }
+        for(int i = ind; i<nums.size(); i++){
+            swap(nums[i], nums[ind]);
+            helper(ind+1, nums, ans);
+            swap(nums[i], nums[ind]);
         }
     }
 public:
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> ans;
-        vector<int> ds;
-        vector<bool> freq(nums.size(), false);
-        helper(nums, ds, freq, ans);
+        // vector<int> ds;
+        // vector<bool> freq(nums.size(), false);
+        helper(0, nums, ans);
         return ans;
     }
 };
