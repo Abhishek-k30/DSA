@@ -1,5 +1,5 @@
-class Solution {
-private:
+class CurSolution{
+ private:
     void findCombination(int ind, int target, vector<int>& arr, vector<int> &ds, vector<vector<int>> &ans) {
        
             if(target == 0){
@@ -18,12 +18,24 @@ private:
         
     }
 public:
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         sort(candidates.begin(), candidates.end());
         vector<vector<int>> ans;
         vector<int> ds;
         findCombination(0, target, candidates, ds, ans);
         return ans;
         
+    }   
+};
+class Solution { 
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        // sort(candidates.begin(), candidates.end());
+        // vector<vector<int>> ans;
+        // vector<int> ds;
+        // findCombination(0, target, candidates, ds, ans);
+        // return ans;
+        CurSolution curSolution;
+        return curSolution.combinationSum(candidates, target);
     }
 };
