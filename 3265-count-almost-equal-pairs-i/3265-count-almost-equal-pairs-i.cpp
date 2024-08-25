@@ -1,59 +1,25 @@
 class Solution {
 private:
     bool check(int l, int r){
-        vector<int> digitl, digitr;
-        while(l>0){
-            digitl.push_back(l%10);
-            l/=10;
-        }
-         while(r>0){
-            digitr.push_back(r%10);
-            r/=10;
+         string s1 = to_string(l);
+         string s2 = to_string(r);
+        
+         if(s1.size()<s2.size()){
+             while(s1.size()<s2.size())s1= '0'+s1;
+         }
+        else if(s1.size()>s2.size()){
+            while(s2.size()<s1.size())s2='0'+s2;
         }
         
-        reverse(digitl.begin(), digitl.end());
-        reverse(digitr.begin(), digitr.end());
-        int s1= digitl.size(), s2 = digitr.size();
-        if(s1<s2){
-            reverse(digitl.begin(), digitl.end());
-            int cur=s1;
-            while(digitl.size()<s2){
-                digitl.push_back(0);
-            }
-            reverse(digitl.begin(), digitl.end());
-        }
-        else if(s2<s1){
-            reverse(digitr.begin(), digitr.end());
-            int cur=s1;
-            while(digitr.size()<s1){
-                digitr.push_back(0);
-            }
-            reverse(digitr.begin(), digitr.end());
+        unordered_map<char, int> mpp1, mpp2;
+        int diff = 0;
+        for(int i = 0; i<s1.size(); i++){
+            if(s1[i]!=s2[i])diff++;
+            mpp1[s1[i]]++;
+            mpp2[s2[i]]++;
         }
         
-        if(digitl==digitr)return true;
-        vector<int> base1 = digitl, base2 = digitr;
-        for(int i = 0; i<digitl.size(); i++){
-            for(int j = i+1; j<digitl.size();j++ ){
-                swap(digitl[i], digitl[j]);
-                if(digitl== base2)
-                    return true;
-                
-                digitl = base1;
-            }
-        }
-        
-        for(int i = 0; i<digitr.size(); i++){
-            for(int j = i+1; j<digitr.size();j++ ){
-                swap(digitr[i], digitr[j]);
-                if(digitr== base1)
-                    return true;
-                
-                digitr = base2;
-            }
-        }
-        
-        return false;
+        return diff<=2 && mpp1==mpp2;
         
     }
 public:
