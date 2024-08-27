@@ -11,7 +11,6 @@ public:
         }
         
         vector<double> dist(n, (double)0.0);
-        vector<int> vis(n, 0);
         dist[start_node] =  1.0;
         priority_queue<pair<double, int>> pq; //{prob, node}
         
@@ -20,8 +19,7 @@ public:
             int node = pq.top().second;
             double prob = pq.top().first;
             pq.pop();
-            if(!vis[node]){
-                vis[node] = 1;
+            
             for(auto it: adj[node]){
                 double edgeProb = it.second;
                 int adjNode = it.first;
@@ -31,7 +29,7 @@ public:
                     pq.push({edgeProb*prob, adjNode});
                 }
             }
-        }
+         
        }
         
         return dist[end_node];
