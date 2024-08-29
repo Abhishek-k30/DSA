@@ -23,7 +23,7 @@ public:
         //return f(0, 0, n, triangle, dp);
         
         for(int i = n-2; i>=0; i--){
-            for(int j =i; j>=0 ; j-- ){
+            for(int j = i; j>=0; j--){
                 int down = dp[i][j] + dp[i+1][j];
                 int dg = dp[i][j] + dp[i+1][j+1];
                 
