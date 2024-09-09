@@ -10,13 +10,14 @@
  * };
  */
 class Solution {
+private:
+    bool solve(TreeNode* p, TreeNode* q){
+        if(!p || !q)return p==q;
+        return (p->val == q->val) && solve(p->left, q->right) 
+            && solve(p->right, q->left);
+    }
 public:
     bool isSymmetric(TreeNode* root) {
-        return root==NULL || helper(root->left, root->right);
-    }
-    bool helper(TreeNode* p, TreeNode* q){
-        if(!p || !q)
-            return p==q;
-        return (p->val==q->val) && (helper(p->left, q->right)) && helper(p->right, q->left);
+        return solve(root->left, root->right);
     }
 };
