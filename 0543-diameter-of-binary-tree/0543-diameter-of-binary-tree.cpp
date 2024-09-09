@@ -10,18 +10,20 @@
  * };
  */
 class Solution {
+private:
+    int solve(TreeNode* root, int &maxi){
+        if(!root)return 0;
+        int lh = solve(root->left, maxi);
+        int rh = solve(root->right, maxi);
+        
+        maxi = max(maxi, lh + rh);
+        
+        return 1 + max(lh, rh);
+    }
 public:
     int diameterOfBinaryTree(TreeNode* root) {
-        int maxi=0;
-        int val=findMax(root, maxi); 
+        int maxi = 0;
+        solve(root, maxi);
         return maxi;
-    }
-    
-    int findMax(TreeNode* root, int &maxi){
-        if(!root)return 0;
-        int lh=findMax(root->left, maxi);
-        int rh=findMax(root->right, maxi);
-        maxi=max(maxi, lh+rh);
-        return 1+ max(lh, rh);
     }
 };
