@@ -17,16 +17,16 @@ public:
         queue<TreeNode*> q;
         q.push(root);
         while(!q.empty()){
-            int sz=q.size();
-            vector<int> curr;
-            for(int i=0; i<sz; i++){
-                auto it= q.front();
+            int size = q.size();
+            vector<int> temp;
+            while(size--){
+                TreeNode* cur = q.front();
                 q.pop();
-                if(it)curr.push_back(it->val);
-                if(it->left)q.push(it->left);
-                if(it->right)q.push(it->right);
+                temp.push_back(cur->val);
+                if(cur->left)q.push(cur->left);
+                if(cur->right)q.push(cur->right);
             }
-            ans.push_back(curr);
+            ans.push_back(temp);
         }
         
         return ans;
