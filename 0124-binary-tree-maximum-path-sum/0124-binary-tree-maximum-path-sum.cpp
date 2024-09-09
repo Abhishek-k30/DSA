@@ -10,18 +10,19 @@
  * };
  */
 class Solution {
+private:
+    int maxSum(TreeNode* root, int &maxi){
+        if(!root)return 0;
+        int lh = max(0, maxSum(root->left, maxi));
+        int rh = max(0, maxSum(root->right, maxi));
+        
+        maxi = max(maxi, root->val + lh + rh);
+        return root->val + max(lh, rh);
+    }
 public:
     int maxPathSum(TreeNode* root) {
-        int maxsum=INT_MIN;
-        findMaxSum(root, maxsum);
-        return maxsum;
-    }
-    
-    int findMaxSum(TreeNode* root, int &maxsum){
-        if(!root)return 0;
-        int lh=max(0, findMaxSum(root->left, maxsum));
-        int rh=max(0, findMaxSum(root->right, maxsum));
-        maxsum=max(maxsum, lh+rh+root->val);
-        return root->val+max(lh,rh);
+        int maxi = INT_MIN;
+        maxSum(root, maxi);
+        return maxi;
     }
 };
