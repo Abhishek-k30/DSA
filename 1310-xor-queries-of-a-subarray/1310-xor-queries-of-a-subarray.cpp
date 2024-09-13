@@ -3,10 +3,8 @@ private:
     vector<int> toBinary(int num){
         int i = 0;
         vector<int> bits(32,0);
-        while(num){
-            bits[i] = num%2;
-            num/=2;
-            i++;
+        for(int i = 0; i<=31; i++){
+            if(num&(1LL<<i))bits[i] = 1;
         }
         return bits;
     }
