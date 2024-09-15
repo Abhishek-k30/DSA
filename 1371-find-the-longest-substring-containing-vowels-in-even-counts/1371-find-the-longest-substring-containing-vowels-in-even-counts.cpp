@@ -14,7 +14,7 @@ public:
                 }
             }
             
-            cout<<mask<<" ";
+            //cout<<mask<<" ";
             if(m.find(mask)==m.end()){
                 m[mask]=i;
             }
@@ -22,7 +22,7 @@ public:
             res=max(res, i-m[mask]);
         }
         
-        cout<<endl;
+        //cout<<endl;
         return res;
     }
 };
