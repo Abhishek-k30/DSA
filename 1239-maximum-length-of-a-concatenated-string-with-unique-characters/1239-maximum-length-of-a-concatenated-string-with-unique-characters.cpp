@@ -28,13 +28,13 @@ private:
         return true;
     }
 public:
-    int memo[17];
+    unordered_map<string, int> memo;
     int solve(int idx, int n, string temp, vector<string>&arr){
         if(idx >= n){
             return temp.size();
         }
         
-        //if(memo[idx]!=-1)return memo[idx];
+        if(memo.find(temp)!=memo.end())return memo[temp];
         
         string cur = arr[idx];
         int notTake = solve(idx+1,n, temp, arr);
@@ -43,12 +43,12 @@ public:
             take = solve(idx+1, n, temp+cur, arr);
         }
         
-        return   max(take, notTake);
+        return  memo[temp] =  max(take, notTake);
     }
     int maxLength(vector<string>& arr) {
         vector<string> dis;
         
-        memset(memo, -1 , sizeof(memo));
+         memo.clear();
         
         for(int i = 0; i<arr.size(); i++){
             if(distinct(arr[i])){
