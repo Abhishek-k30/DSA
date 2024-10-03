@@ -1,13 +1,14 @@
 class Solution {
 public:
     int minSubarray(vector<int>& nums, int p) {
-        long long sum = accumulate(nums.begin(), nums.end(), (long long)0);
+        int sum = 0;
+        for(int i = 0; i<nums.size(); i++){
+            sum = (sum+nums[i])%p;
+        }
         int rem = sum%p;
         if(rem == 0)return 0;
-        int l = 0;
         int len = nums.size();
-        long long curSum = 0;
-        map<long long, int> mpp;
+        map<int, int> mpp;
         mpp[0] = -1;
         
         int cur = 0;
