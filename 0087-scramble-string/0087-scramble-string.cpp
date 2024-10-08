@@ -1,6 +1,6 @@
 class Solution {
 public:
-    map<string, int> mpp;
+    unordered_map<string, int> mpp;
     bool solve(string s1, string s2){
         if(s1 == s2){
             return true;
@@ -20,13 +20,18 @@ public:
         bool swapped = solve(s1.substr(0, i) , s2.substr(n-i, i))
                         &&
                         solve(s1.substr(i, n-i), s2.substr(0, n-i));
+            
+        if( swapped){
+                result = true;
+                break;
+            }
            
         bool notSwapped = solve(s1.substr(0, i), s2.substr(0, i))
                         &&
                          solve(s1.substr(i, n-i), s2.substr(i,n-i));
             
             
-            if(swapped || notSwapped){
+            if( notSwapped){
                 result = true;
                 break;
             }
