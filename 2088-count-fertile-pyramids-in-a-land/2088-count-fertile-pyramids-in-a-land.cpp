@@ -9,7 +9,7 @@ public:
         int res = 0;
         
         if(i+1<n && grid[i+1][j]==1){
-            res = 1 + min({solve(i+1, j-1, grid, dp),solve(i+1, j, grid, dp), solve(i+1,j+1, grid, dp)});
+            res = 1 + min({solve(i+1, j-1, grid, dp) , solve(i+1,j+1, grid, dp)});
         }
         
         return dp[i][j] = res;
