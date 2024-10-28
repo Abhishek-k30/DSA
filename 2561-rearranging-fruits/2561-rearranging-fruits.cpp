@@ -1,76 +1,40 @@
 class Solution {
 public:
     long long minCost(vector<int>& basket1, vector<int>& basket2) {
-          
-        // check 1 - freq of all int should be even else return -1
-        // 1 1 2 4
-        // 2 2 2 4
+         
+        map<int, int> mpp;
         
-        int n = basket1.size();
+        for(auto &it : basket1)mpp[it]++;
+        for(auto &it: basket2)mpp[it]--;
         
-        sort(basket1.begin(), basket1.end());
-        sort(basket2.begin(), basket2.end());
         
-        map<int, int> totalFreq, freq1, freq2;
+        vector<int> swapB1toB2, swapB2toB1;
         
-        for(int i = 0 ; i<n; i++){
-            totalFreq[basket1[i]]++;
-            totalFreq[basket2[i]]++;
-            
-            freq1[basket1[i]]++;
-            freq2[basket2[i]]++;
-        }
-        
-        for(auto &it: totalFreq){
+        for(auto &it : mpp){
             if(it.second%2)return -1;
-        }
-        
-        long long minSwaps = 0;
-        
-//         for(int i = 0; i<n; i++){
-//             if(basket1[i] == basket2[i]){
-//                 continue;
-//             }
-//             else{
-//                 int totCnt1 = mpp[basket1[i]];
-//                 int totCnt2 = mpp[basket2[i]];
+            
+            if(it.second>0){    // swap from b1 to b2
                 
-                
-//             }
-//         }
-        
-        long long mn = totalFreq.begin()->first;
-        
-        vector<int> temp1, temp2;
-        for(auto &it : freq1){
-            int cnt = it.second;
-            int netCnt = totalFreq[it.first];
-            
-            for(int i = 0; i< (cnt-(netCnt/2)); i++){
-                temp1.push_back(it.first);
+                int cnt = it.second/2;
+                while(cnt--)swapB1toB2.push_back(it.first);
             }
-        }
-        for(auto &it : freq2){
-            int cnt = it.second;
-            int netCnt = totalFreq[it.first];
+            else{       // swap from b2 to b1
             
-            for(int i = 0; i< (cnt-(netCnt/2)); i++){
-                temp2.push_back(it.first);
+                int cnt = -it.second/2;
+                while(cnt--)swapB2toB1.push_back(it.first);
             }
         }
         
-        if(temp1.size()!=temp2.size()){
-            return -1;
-        }
-        else{
-            
-            reverse(temp2.begin(), temp2.end());
-            
-            for(int i = 0; i<temp1.size(); i++){
-                minSwaps+= min(2*mn,(long long)min(temp1[i], temp2[i]));
-            }
+        reverse(swapB2toB1.begin(), swapB2toB1.end());
+        
+        long long minCost = 0;
+        
+        long long mn = mpp.begin()->first;
+        
+        for(int i = 0; i<swapB1toB2.size(); i++){
+            minCost+= min(2*mn, (long long)min(swapB1toB2[i], swapB2toB1[i]));
         }
         
-        return minSwaps;
+        return minCost;
     }
 };
