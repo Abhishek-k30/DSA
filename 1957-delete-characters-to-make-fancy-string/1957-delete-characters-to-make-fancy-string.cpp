@@ -4,28 +4,25 @@ public:
         int n = s.size();
         int cnt = 0;
         string res = "";
-        stack<char> st;
+        char lastChar ;
         
         for(int i = 0; i<n; i++){
-            if(st.empty()){
-                st.push(s[i]);
+            if(cnt == 0){
                 res+=s[i];
+                lastChar = s[i];
                 cnt = 1;
             }
-            else{
-                if(st.top() == s[i]){
-                    if(cnt == 2)continue;
-                    else{
-                        st.push(s[i]);
-                        res+=s[i];
-                        cnt++;
-                    }
-                }
+            else if(lastChar == s[i]){
+                if(cnt == 2)continue;
                 else{
-                    st.push(s[i]);
+                    cnt++;
                     res+=s[i];
-                    cnt = 1;
                 }
+            }
+            else{
+                cnt = 1;
+                res+=s[i];
+                lastChar = s[i];
             }
         }
         
