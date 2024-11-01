@@ -9,6 +9,7 @@ public:
         for(int i = 0; i<n; i++){
             if(st.empty()){
                 st.push(s[i]);
+                res+=s[i];
                 cnt = 1;
             }
             else{
@@ -16,22 +17,21 @@ public:
                     if(cnt == 2)continue;
                     else{
                         st.push(s[i]);
+                        res+=s[i];
                         cnt++;
                     }
                 }
                 else{
                     st.push(s[i]);
+                    res+=s[i];
                     cnt = 1;
                 }
             }
         }
         
-        while(!st.empty()){
-            res+=st.top();
-            st.pop();
-        }
         
-        reverse(res.begin(), res.end());
+        
+       
         return res;
     }
 };
