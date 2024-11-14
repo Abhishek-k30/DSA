@@ -3,9 +3,8 @@ public:
     bool check(int n, vector<int> v, int mid){
         int cnt=0;
         for(int i=0; i<v.size(); i++){
-            cnt+=  (v[i]+mid-1)/mid;
+            cnt+=   v[i]/mid + (v[i]%mid!=0? 1 : 0);
         }
-        
         if(cnt<=n)return true;
         return false;
          
